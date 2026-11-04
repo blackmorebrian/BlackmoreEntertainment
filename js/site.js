@@ -5,7 +5,7 @@
 // Contact page ("Check your date"): the Web app URL of contact-email-script.gs,
 // a standalone script that just emails each inquiry to you. Separate from the
 // Google Form, which only the wedding planning form (/plan) uses.
-const CONTACT_URL = "";
+const CONTACT_URL = "https://script.google.com/macros/s/AKfycbwQ2Id9fs3TFP_wjQVxXesygq0YbULsfFQEJ8rftvGSueKIIn-dT9ZZ68kjzmaOyY2e/exec";
 
 // Your DJ setups, in order. Used by the showcase on Home, Weddings and Events.
 const PACKAGES = [

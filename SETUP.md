@@ -31,10 +31,9 @@ The Contact page emails each inquiry to you. It uses its own small script, **not
    To send inquiries somewhere else, change `INQUIRY_EMAIL` at the top.
 3. **Deploy → New deployment** → ⚙️ → **Web app**. Execute as: **Me**. Who has access: **Anyone**. Click **Deploy**.
 4. Authorize it (Advanced → Go to project → Allow). It only asks to send email as you.
-5. Copy the **Web app URL** and paste it into `js/site.js` between the quotes on the `const CONTACT_URL = "";` line.
+5. Copy the **Web app URL** and paste it into `js/site.js` on the `const CONTACT_URL = "...";` line (already done).
    Or send the URL to Claude.
 
-Until that URL is in place, the Contact form shows an error asking people to call or email instead.
 
 ---
 
