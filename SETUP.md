@@ -9,7 +9,7 @@
 | Events | `events/index.html` | Corporate events and private parties. Add non-wedding photos when you have them |
 | Services | `services/index.html` | |
 | Foam Parties | `foam-parties/index.html` | Needs a real photo + "bookings include" details |
-| About | `about/index.html` | Brian's story. Add a photo of Brian when you have one |
+| About | `about/index.html` | Brian's story and photo |
 | 404 page | `404.html` | Shown for any address that doesn't exist |
 | Contact | `contact/index.html` | "Check your date" form, emailed to you (see Contact form setup below) |
 | Wedding planning form | `plan/index.html` | Unlisted, hidden from Google. Send the link to booked couples |
