@@ -10,7 +10,7 @@
 | Services | `services/index.html` | |
 | Foam Parties | `foam-parties/index.html` | Needs a real photo + "bookings include" details |
 | About | `about/index.html` | Needs photos of Brian & Matt |
-| Contact | `contact/index.html` | "Check your date" form, emailed to you |
+| Contact | `contact/index.html` | "Check your date" form, emailed to you (see Contact form setup below) |
 | Wedding planning form | `plan/index.html` | Unlisted, hidden from Google. Send the link to booked couples |
 
 Shared look: `css/site.css`. Shared behavior (menu, showcase on Home/Weddings/Events, contact form, package list): `js/site.js`.
@@ -22,9 +22,19 @@ The `/plan` form is a standalone file and is edited directly.
 **Hosting:** this whole folder is the website. It needs no build step on the host, so drag it to
 Netlify Drop, or connect the GitHub repo to Vercel / Netlify / Cloudflare Pages with the output folder set to this one.
 
-**Before the Contact form goes live:** paste the latest `google-form-script.gs` into your Google Form's
-Apps Script and deploy a **new version** (Deploy → Manage deployments → ✏️ → New version). That version
-emails contact inquiries to you. The older version would save them as wedding-form responses instead.
+## Contact form ("Check your date"): setup
+
+The Contact page emails each inquiry to you. It uses its own small script, **not** the Google Form.
+
+1. Go to [script.google.com](https://script.google.com) → **New project**. Name it "Blackmore contact form".
+2. Delete what's in the editor, paste in everything from `contact-email-script.gs`, and click 💾 save.
+   To send inquiries somewhere else, change `INQUIRY_EMAIL` at the top.
+3. **Deploy → New deployment** → ⚙️ → **Web app**. Execute as: **Me**. Who has access: **Anyone**. Click **Deploy**.
+4. Authorize it (Advanced → Go to project → Allow). It only asks to send email as you.
+5. Copy the **Web app URL** and paste it into `js/site.js` between the quotes on the `const CONTACT_URL = "";` line.
+   Or send the URL to Claude.
+
+Until that URL is in place, the Contact form shows an error asking people to call or email instead.
 
 ---
 

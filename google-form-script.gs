@@ -77,14 +77,6 @@ const EXTRAS_NOTE_ITEM = 1201480962;
 function doPost(e) {
   try {
     const data = (e && e.parameter) || {};
-
-    // Contact-page inquiries from the website are emailed to you,
-    // not saved as wedding-form responses.
-    if (data.formType === "inquiry") {
-      sendInquiry(data);
-      return json({ ok: true });
-    }
-
     const form = FormApp.getActiveForm();
     const response = form.createResponse();
     const answers = {};   // itemId -> value to save
@@ -184,24 +176,6 @@ function sendSummary(form, saved, data) {
     subject: "Wedding form: " + couple + (data["Wedding Date"] ? " (" + data["Wedding Date"] + ")" : ""),
     body: lines.join("\n\n") + "\n\nAll responses: " + form.getEditUrl().replace(/edit$/, "edit#responses"),
     replyTo: data["Email"] || NOTIFY_EMAIL,
-  });
-}
-
-// Where website inquiries (Contact page) are emailed.
-const INQUIRY_EMAIL = "blackmore.brian@gmail.com";
-
-function sendInquiry(data) {
-  const body = Object.keys(data)
-    .filter(k => k !== "formType" && String(data[k]).trim())
-    .map(k => k + ": " + data[k])
-    .join("\n");
-  MailApp.sendEmail({
-    to: INQUIRY_EMAIL,
-    subject: "Website inquiry: " + (data["Name"] || "New inquiry") +
-      (data["Event Type"] ? " (" + data["Event Type"] + ")" : "") +
-      (data["Event Date"] ? " " + data["Event Date"] : ""),
-    body: body,
-    replyTo: data["Email"] || INQUIRY_EMAIL,
   });
 }
 

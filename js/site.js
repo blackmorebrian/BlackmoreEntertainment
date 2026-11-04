@@ -2,9 +2,10 @@
    Blackmore Entertainment: site script
    ========================================================================== */
 
-// Same Google Form script the /plan page uses. Contact-page inquiries are
-// emailed to you (they are NOT saved as wedding-form responses).
-const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbxv9eqatRNCso65fRbVTGnKkCP89Kq7AESNJrmZ_9FEgXk5vamqemY7u5cwXECHMWFEJw/exec";
+// Contact page ("Check your date"): the Web app URL of contact-email-script.gs,
+// a standalone script that just emails each inquiry to you. Separate from the
+// Google Form, which only the wedding planning form (/plan) uses.
+const CONTACT_URL = "";
 
 // Your DJ setups, in order. Used by the showcase on Home, Weddings and Events.
 const PACKAGES = [
@@ -141,14 +142,14 @@ document.querySelectorAll("[data-showcase]").forEach(root => {
     errorEl.textContent = "";
 
     const data = new URLSearchParams();
-    data.append("formType", "inquiry");
     for (const [k, v] of new FormData(form).entries()) if (String(v).trim()) data.append(k, v);
     if (form.querySelector("#packageWrap").hidden) data.delete("Package Interest");
 
     btn.disabled = true; btn.textContent = "Sending…";
     try {
+      if (!CONTACT_URL) throw new Error("CONTACT_URL is not set in js/site.js");
       let result = null;
-      try { result = await (await fetch(SUBMIT_URL, { method: "POST", body: data })).json(); } catch (_) { result = null; }
+      try { result = await (await fetch(CONTACT_URL, { method: "POST", body: data })).json(); } catch (_) { result = null; }
       if (result && result.ok === false) throw new Error(result.error);
       form.hidden = true;
       document.getElementById("inquirySuccess").hidden = false;
