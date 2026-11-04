@@ -9,19 +9,19 @@ const CONTACT_URL = "https://script.google.com/macros/s/AKfycbwQ2Id9fs3TFP_wjQVx
 
 // Your DJ setups, in order. Used by the showcase on Home, Weddings and Events.
 const PACKAGES = [
-  { id: "core", name: "Core", tier: "The Experience", image: "/assets/core.jpg",
+  { id: "core", price: "$1,950", name: "Core", tier: "The Experience", image: "/assets/core.jpg",
     short: "A clean, professional table setup with black linens and speaker scrims.",
     desc: "A clean, professional DJ setup focused on what matters most: great music and a packed dance floor. Featuring a streamlined table setup with black linens, speaker scrims, and professional DJ equipment." },
-  { id: "select", name: "Select", tier: "The Experience", image: "/assets/select.jpg",
+  { id: "select", price: "$2,450", name: "Select", tier: "The Experience", image: "/assets/select.jpg",
     short: "A sleek, backlit DJ booth and dance floor lighting, in black or white.",
     desc: "Take your setup up a notch with a sleek, backlit DJ booth and dance floor lighting. Customize your look with your choice of black or white booth and speaker scrims. It's a more polished setup that brings a little extra atmosphere to the room." },
-  { id: "pro", name: "Pro", tier: "The Experience", image: "/assets/pro.jpg",
+  { id: "pro", price: "$2,950", name: "Pro", tier: "The Experience", image: "/assets/pro.jpg",
     short: "Everything in Select, plus professional subwoofers for deep, full bass.",
     desc: "Everything in Select, with one major addition: serious low-end power. Professional subwoofers deliver the deep, full-bodied bass that brings your favorite dance tracks to life. Perfect for a crowd that wants to really feel the music." },
-  { id: "elite", name: "Elite", tier: "The Experience", image: "/assets/elite.jpg",
+  { id: "elite", price: "$3,600", name: "Elite", tier: "The Experience", image: "/assets/elite.jpg",
     short: "Everything in Pro, plus intelligent lighting and moving heads.",
     desc: "Everything in Pro, amplified with additional intelligent lighting and moving heads. Dynamic beams, movement, and club-inspired lighting effects transform your dance floor into an immersive party experience. For any event that deserves a little more nightlife energy." },
-  { id: "signature", name: "Signature Production", tier: "Our Largest Presentation", image: "/assets/signature.jpg",
+  { id: "signature", price: "$4,500", name: "Signature Production", tier: "Our Largest Presentation", image: "/assets/signature.jpg",
     short: "An oversized booth with a front-facing display for your monogram, logo or photos.",
     desc: "Our largest and most customizable DJ presentation. Featuring an upgraded oversized DJ booth with an integrated front-facing display, perfect for showcasing a wedding monogram, company logo, photos, videos and special moments. A personalized visual centerpiece that makes your entertainment setup part of the overall event design." },
 ];
@@ -60,13 +60,15 @@ document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date
 })();
 
 /* ---------- Package showcase: hover (or tap) swaps the big photo ---------- */
-// <div data-showcase data-link="/contact/?package={id}"></div>
+// <div data-showcase data-link="/contact/?package={id}" data-prices></div>
+// data-prices shows each setup's "From $" price (Weddings page only).
 document.querySelectorAll("[data-showcase]").forEach(root => {
   const linkTpl = root.dataset.link || "";
+  const showPrice = "prices" in root.dataset;
   root.classList.add("packages");
   root.innerHTML = `
     <div class="stage" aria-live="polite">
-      <div class="stage-caption"><div class="tier"></div><div class="name"></div><p class="desc"></p></div>
+      <div class="stage-caption"><div class="tier"></div><div class="name"></div>${showPrice ? '<div class="price"></div>' : ""}<p class="desc"></p></div>
     </div>
     <div>
       <div class="pkg-list"></div>
@@ -74,7 +76,7 @@ document.querySelectorAll("[data-showcase]").forEach(root => {
     </div>`;
   const stage = root.querySelector(".stage");
   const list = root.querySelector(".pkg-list");
-  const cap = { tier: stage.querySelector(".tier"), name: stage.querySelector(".name"), desc: stage.querySelector(".desc") };
+  const cap = { tier: stage.querySelector(".tier"), name: stage.querySelector(".name"), price: stage.querySelector(".price"), desc: stage.querySelector(".desc") };
   const imgs = {};
 
   PACKAGES.forEach((p, i) => {
@@ -89,7 +91,7 @@ document.querySelectorAll("[data-showcase]").forEach(root => {
     if (linkTpl) el.href = linkTpl.replace("{id}", p.id);
     el.innerHTML = `
       <img class="pkg-thumb" src="${p.image}" alt="" loading="lazy">
-      <div><p class="pkg-name">${p.name}</p><p class="pkg-desc short">${p.short}</p><p class="pkg-desc full">${p.desc}</p></div>
+      <div><p class="pkg-name">${p.name}</p>${showPrice ? `<p class="pkg-price">From ${p.price}</p>` : ""}<p class="pkg-desc short">${p.short}</p><p class="pkg-desc full">${p.desc}</p></div>
       <span class="pkg-arrow" aria-hidden="true">&rarr;</span>`;
     list.appendChild(el);
   });
@@ -102,6 +104,7 @@ document.querySelectorAll("[data-showcase]").forEach(root => {
     Object.entries(imgs).forEach(([k, el]) => el.classList.toggle("show", k === id));
     list.querySelectorAll(".pkg").forEach(el => el.classList.toggle("active", el.dataset.id === id));
     cap.tier.textContent = p.tier; cap.name.textContent = p.name; cap.desc.textContent = p.desc;
+    if (cap.price) cap.price.textContent = "From " + p.price;
   };
   list.querySelectorAll(".pkg").forEach(el => {
     el.addEventListener("mouseenter", () => show(el.dataset.id));

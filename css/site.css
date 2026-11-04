@@ -259,6 +259,8 @@ a.card:hover .card-media img { transform: scale(1.04); }
 .pkg:hover, .pkg.active { border-color: var(--gold); background: linear-gradient(90deg, var(--gold-soft), transparent 70%), var(--surface-2); }
 .pkg-thumb { width: 64px; height: 80px; object-fit: cover; border-radius: 2px; }
 .pkg-name { font-family: var(--serif); font-size: 25px; line-height: 1.1; margin: 0 0 4px; }
+.pkg-price { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px; }
+.stage-caption .price { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin: -2px 0 10px; }
 .pkg-desc { font-size: 15px; color: var(--muted); margin: 0; line-height: 1.5; }
 .pkg-desc.full { display: none; }
 .pkg-arrow { color: var(--gold); font-size: 20px; opacity: 0; transform: translateX(-6px); transition: all .25s; }
@@ -378,7 +380,7 @@ input::placeholder, textarea::placeholder { color: #6f675d; }
   .stage img { object-position: center 58%; }
   .stage-caption { padding: 40px 18px 14px; }
   .stage-caption .name { font-size: 26px; margin: 0; }
-  .stage-caption .desc { display: none; }
+  .stage-caption .desc, .stage-caption .price { display: none; }
   .pkg-desc.short { display: none; }
   .pkg-desc.full { display: block; }
 }
