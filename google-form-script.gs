@@ -10,7 +10,7 @@
 // Optional: also email a summary of each submission to you.
 // Google Forms' own "email notifications for new responses" may not fire for
 // responses created by a script, so this is on by default. Set to "" to turn off.
-const NOTIFY_EMAIL = "blackmore.brian@gmail.com";
+const NOTIFY_EMAIL = "blackmoreentertainment@gmail.com";
 
 // Which Google Form question each answer from the page goes into.
 // Left: the field name the page sends. Right: the Google Form question ID.
