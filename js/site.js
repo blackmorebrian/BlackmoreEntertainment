@@ -46,6 +46,27 @@ document.documentElement.classList.remove("no-js");
   }));
 })();
 
+/* ---------- Home hero: crossfade through the photos ---------- */
+document.querySelectorAll(".hero-bg.slides").forEach(bg => {
+  const imgs = [...bg.querySelectorAll("img")];
+  let i = 0;
+  imgs[0].classList.add("show");
+  if (imgs.length < 2 || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Start loading the rest once the page is up
+  window.addEventListener("load", () => imgs.forEach(img => img.loading = "eager"));
+  setInterval(() => {
+    if (document.hidden) return;
+    const next = (i + 1) % imgs.length;
+    if (!imgs[next].complete) return;           // wait until the next photo has loaded
+    imgs.forEach(img => img.classList.remove("prev"));
+    imgs[next].classList.remove("show");
+    void imgs[next].offsetWidth;                 // restart its zoom
+    imgs[i].classList.replace("show", "prev");
+    imgs[next].classList.add("show");
+    i = next;
+  }, 6000);
+});
+
 /* ---------- Footer year ---------- */
 document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date().getFullYear());
 
