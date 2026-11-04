@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Blackmore Entertainment</title>
+<meta name="description" content="Check your date with Blackmore Entertainment. Call (203) 258-1349 or email hello@blackmoreentertainment.com. Serving Fairfield County, CT, Westchester County, NY and beyond.">
+<link rel="canonical" href="https://www.blackmoreentertainment.com/contact/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackmore Entertainment">
+<meta property="og:title" content="Contact | Blackmore Entertainment">
+<meta property="og:description" content="Check your date with Blackmore Entertainment. Call (203) 258-1349 or email hello@blackmoreentertainment.com. Serving Fairfield County, CT, Westchester County, NY and beyond.">
+<meta property="og:image" content="https://www.blackmoreentertainment.com/assets/signature.jpg">
+<meta property="og:url" content="https://www.blackmoreentertainment.com/contact/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/site.css">
+</head>
+<body>
+<header class="site-header">
+  <nav class="nav" aria-label="Main">
+    <a class="brand" href="/" aria-label="Blackmore Entertainment home">
+      <img src="/assets/logo.webp" alt="" width="40" height="50">
+      <span>Blackmore<br>Entertainment</span>
+    </a>
+    <ul class="nav-links">
+        <li><a href="/weddings/">Weddings</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/foam-parties/">Foam Parties</a></li>
+        <li><a href="/services/">Services</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/contact/" aria-current="page">Contact</a></li>
+        <li class="mobile-cta"><a href="/contact/">Check your date</a></li>
+    </ul>
+    <a class="btn nav-cta" href="/contact/">Check your date</a>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false"><span></span></button>
+  </nav>
+</header>
+<main>
+<section style="padding-top: clamp(130px, 16vw, 180px)">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="reveal">
+        <p class="eyebrow">Contact</p>
+        <h1 style="font-size:clamp(44px,6vw,72px)">We'd love to hear <em>from you</em>.</h1>
+        <p class="lede" style="margin-top:22px">Send us your date and a few details, and we'll be in touch.</p>
+        <ul class="contact-list">
+          <li><span class="label">Call or text</span><a href="tel:+12032581349">(203) 258-1349</a></li>
+          <li><span class="label">Email</span><a href="mailto:hello@blackmoreentertainment.com">hello@blackmoreentertainment.com</a></li>
+          <li><span class="label">Serving</span><span style="font-family:var(--serif);font-size:24px">Fairfield County, CT &middot; Westchester County, NY &middot; and beyond</span></li>
+        </ul>
+      </div>
+
+      <div class="form-card reveal">
+        <form id="inquiryForm" novalidate>
+          <div class="grid">
+            <div class="field"><label for="iName">Name<span class="req">*</span></label><input type="text" id="iName" name="Name" required autocomplete="name"></div>
+            <div class="field"><label for="iEmail">Email<span class="req">*</span></label><input type="email" id="iEmail" name="Email" required autocomplete="email"></div>
+            <div class="field"><label for="iPhone">Phone</label><input type="tel" id="iPhone" name="Phone" autocomplete="tel"></div>
+            <div class="field"><label for="iDate">Event date</label><input type="date" id="iDate" name="Event Date"></div>
+            <div class="field full">
+              <span class="label">What are you planning?</span>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="Event Type" value="Wedding"><span>Wedding</span></label>
+                <label class="chip"><input type="radio" name="Event Type" value="Special event"><span>Special event</span></label>
+                <label class="chip"><input type="radio" name="Event Type" value="Corporate event"><span>Corporate event</span></label>
+                <label class="chip"><input type="radio" name="Event Type" value="Foam party"><span>Foam party</span></label>
+                <label class="chip"><input type="radio" name="Event Type" value="Recording"><span>Recording</span></label>
+                <label class="chip"><input type="radio" name="Event Type" value="Other"><span>Something else</span></label>
+              </div>
+            </div>
+            <div class="field full" id="packageWrap" hidden>
+              <label for="iPackage">Setup you're interested in</label>
+              <select id="iPackage" name="Package Interest">
+                <option value="">Not sure yet</option>
+                <option>Core</option>
+                <option>Select</option>
+                <option>Pro</option>
+                <option>Elite</option>
+                <option>Signature Production</option>
+              </select>
+            </div>
+            <div class="field full"><label for="iVenue">Venue or town</label><input type="text" id="iVenue" name="Venue"></div>
+            <div class="field full"><label for="iMessage">Tell us about your event</label><textarea id="iMessage" name="Message" placeholder="Guest count, the vibe you're going for, questions..."></textarea></div>
+          </div>
+          <div class="form-foot">
+            <button class="btn" type="submit">Send inquiry</button>
+            <p class="form-error" role="alert"></p>
+          </div>
+        </form>
+        <div class="form-success" id="inquirySuccess" hidden>
+          <p class="eyebrow">Message sent</p>
+          <h3>Thank you!</h3>
+          <p>We've got your details and will be in touch soon. Need us sooner? Call or text (203) 258-1349.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="/assets/logo.webp" alt="Blackmore Entertainment">
+        <p>DJ entertainment, lighting and event design for weddings, corporate events and parties of every kind.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="/weddings/">Weddings</a></li>
+          <li><a href="/events/">Corporate &amp; Parties</a></li>
+          <li><a href="/foam-parties/">Foam Parties</a></li>
+          <li><a href="/services/">Services</a></li>
+          <li><a href="/about/">About</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Get in touch</h4>
+        <ul>
+          <li><a href="tel:+12032581349">(203) 258-1349</a></li>
+          <li><a href="mailto:hello@blackmoreentertainment.com">hello@blackmoreentertainment.com</a></li>
+          <li><a href="/contact/">Check your date</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span data-year></span> Blackmore Entertainment</span>
+      <span>Fairfield County, CT &middot; Westchester County, NY &middot; and beyond</span>
+    </div>
+  </div>
+</footer>
+<script src="/js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,945 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Wedding Planning | Blackmore Entertainment</title>
+<meta name="description" content="Tell us about your wedding day so we can create the best wedding experience possible.">
+<link rel="icon" href="../assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /* ======================================================================
+     Colors & type. Change these to restyle the whole page.
+     ====================================================================== */
+  :root {
+    --bg: #0d0c0b;
+    --surface: #161412;
+    --surface-2: #1e1b18;
+    --line: rgba(232, 214, 186, 0.14);
+    --line-strong: rgba(232, 214, 186, 0.32);
+    --text: #f3ede4;
+    --muted: #a39a8e;
+    --gold: #c9a46a;
+    --gold-soft: rgba(201, 164, 106, 0.14);
+    --error: #e58a7a;
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Jost", system-ui, -apple-system, sans-serif;
+    --radius: 4px;
+    --pad-x: clamp(20px, 6vw, 72px);
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { display: block; max-width: 100%; }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    min-height: 78vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 80px 20px 120px;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: url("../assets/signature.jpg") center 35% / cover no-repeat;
+    filter: brightness(0.38) saturate(0.9);
+    transform: scale(1.04);
+  }
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(13,12,11,0.2) 0%, rgba(13,12,11,0.55) 60%, var(--bg) 100%);
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 640px; }
+  .hero-logo { width: 96px; margin: 0 auto 36px; opacity: 0.95; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0 0 18px;
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(40px, 7vw, 68px);
+    line-height: 1.05;
+    margin: 0 0 22px;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p.lede { color: #d6cec2; font-size: 17px; margin: 0 auto 36px; max-width: 500px; }
+  .scroll-cue {
+    display: inline-flex; align-items: center; gap: 10px;
+    color: var(--text); text-decoration: none;
+    font-size: 12px; letter-spacing: 0.24em; text-transform: uppercase;
+    border-bottom: 1px solid var(--gold); padding-bottom: 6px;
+  }
+
+  /* ---------- Form shell ---------- */
+  .wrap { max-width: 1080px; margin: -60px auto 0; padding: 0 16px 100px; position: relative; z-index: 2; }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+  }
+
+  /* progress */
+  .progress {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    border-bottom: 1px solid var(--line);
+  }
+  .progress button {
+    all: unset;
+    cursor: default;
+    padding: 20px 8px 18px;
+    text-align: center;
+    position: relative;
+    color: var(--muted);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.3;
+    transition: color .3s;
+  }
+  .progress button .num {
+    display: block;
+    font-family: var(--serif);
+    font-size: 22px;
+    letter-spacing: 0;
+    color: inherit;
+    margin-bottom: 2px;
+  }
+  .progress button::after {
+    content: "";
+    position: absolute; left: 0; right: 0; bottom: -1px; height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform .4s ease;
+  }
+  .progress button.done { color: #cfc5b7; cursor: pointer; }
+  .progress button.active { color: var(--text); }
+  .progress button.active::after, .progress button.done::after { transform: scaleX(1); }
+  .progress button.done::after { opacity: .35; }
+
+  .step { display: none; padding: 52px var(--pad-x) 0; animation: fade .5s ease; }
+  .step.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+  .step-head { margin-bottom: 36px; }
+  .step-head .eyebrow { margin-bottom: 10px; }
+  .step-head h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(30px, 4.5vw, 42px);
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+  .step-head p { color: var(--muted); margin: 0; max-width: 580px; }
+
+  .section-label {
+    font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold); margin: 40px 0 18px; display: flex; align-items: center; gap: 16px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .grid + .section-label { margin-top: 44px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px 28px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .grid .full { grid-column: 1 / -1; }
+
+  .field label, .field .label {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: #ddd4c8;
+    margin-bottom: 8px;
+    font-weight: 400;
+  }
+  .field .req { color: var(--gold); margin-left: 2px; }
+  .field .hint { font-size: 13px; color: var(--muted); margin: -4px 0 10px; line-height: 1.5; }
+
+  input[type=text], input[type=email], input[type=tel], input[type=date],
+  input[type=time], input[type=number], select, textarea {
+    width: 100%;
+    background: var(--surface-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    color: var(--text);
+    font: inherit;
+    font-weight: 300;
+    padding: 13px 14px;
+    transition: border-color .2s, background .2s;
+    color-scheme: dark;
+  }
+  textarea { min-height: 110px; resize: vertical; }
+  textarea.short { min-height: 76px; }
+  input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: #221e1a;
+  }
+  input::placeholder, textarea::placeholder { color: #6f675d; }
+  .touched :invalid { border-color: var(--error); }
+
+  /* chips (checkbox / radio pills) */
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip { position: relative; }
+  .chip input { position: absolute; opacity: 0; inset: 0; cursor: pointer; margin: 0; }
+  .chip span {
+    display: inline-block;
+    padding: 9px 16px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    font-size: 14px;
+    color: #d8cfc3;
+    transition: all .2s;
+    user-select: none;
+  }
+  .chip input:hover + span { border-color: var(--gold); }
+  .chip input:checked + span { background: var(--gold); border-color: var(--gold); color: #17130e; font-weight: 400; }
+  .chip input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .tip {
+    border-left: 2px solid var(--gold);
+    background: var(--gold-soft);
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ddd4c8;
+    margin: 0 0 28px;
+  }
+
+  /* ---------- Package picker ---------- */
+  .packages { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 40px; align-items: start; }
+  .stage {
+    position: sticky; top: 24px;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: #000;
+    border: 1px solid var(--line);
+  }
+  .stage img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transform: scale(1.025);
+    transition: opacity .7s ease, transform 1.4s ease;
+  }
+  .stage img.show { opacity: 1; transform: scale(1); }
+  .stage-caption {
+    position: absolute; left: 0; right: 0; bottom: 0;
+    padding: 90px 26px 24px;
+    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 55%, transparent);
+    z-index: 2;
+  }
+  .stage-caption .tier { font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); }
+  .stage-caption .name { font-family: var(--serif); font-size: 32px; line-height: 1.1; margin-bottom: 8px; }
+  .stage-caption .desc { font-size: 14px; line-height: 1.55; color: #ddd4c8; margin: 0; }
+
+  .pkg-list { display: flex; flex-direction: column; gap: 12px; }
+  .pkg { position: relative; display: block; cursor: pointer; }
+  .pkg input { position: absolute; opacity: 0; pointer-events: none; }
+  .pkg-body {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 18px;
+    align-items: center;
+    padding: 16px 18px 16px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    transition: border-color .25s, background .25s;
+  }
+  .pkg-thumb { width: 64px; height: 80px; object-fit: cover; border-radius: 2px; filter: saturate(.85); }
+  .pkg-name { font-family: var(--serif); font-size: 24px; line-height: 1.1; margin: 0 0 4px; }
+  .pkg-desc { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
+  .pkg-desc.full { display: none; }
+  .pkg-check {
+    width: 22px; height: 22px; border-radius: 50%;
+    border: 1px solid var(--line-strong);
+    display: grid; place-items: center;
+    transition: all .25s;
+  }
+  .pkg-check::after {
+    content: ""; width: 8px; height: 8px; border-radius: 50%;
+    background: #17130e; transform: scale(0); transition: transform .25s;
+  }
+  .pkg:hover .pkg-body { border-color: var(--line-strong); background: #231f1b; }
+  .pkg input:checked + .pkg-body { border-color: var(--gold); background: linear-gradient(90deg, var(--gold-soft), transparent 70%), var(--surface-2); }
+  .pkg input:checked + .pkg-body .pkg-check { background: var(--gold); border-color: var(--gold); }
+  .pkg input:checked + .pkg-body .pkg-check::after { transform: scale(1); }
+  .pkg input:focus-visible + .pkg-body { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .pkg-unsure { font-size: 14px; color: var(--muted); margin-top: 8px; }
+  .pkg-unsure a { color: var(--gold); cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .booth { margin-top: 24px; }
+
+  /* ---------- Nav buttons ---------- */
+  .nav-wrap { padding: 0 var(--pad-x) 44px; }
+  .nav {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+    margin-top: 44px; padding-top: 28px; border-top: 1px solid var(--line);
+  }
+  .btn {
+    appearance: none; border: 1px solid var(--gold); border-radius: var(--radius);
+    background: var(--gold); color: #17130e;
+    font: inherit; font-weight: 500; font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 15px 30px; cursor: pointer; transition: all .25s;
+  }
+  .btn:hover { background: #d8b67f; border-color: #d8b67f; }
+  .btn:disabled { opacity: .6; cursor: wait; }
+  .btn.ghost { background: transparent; color: var(--text); border-color: var(--line-strong); }
+  .btn.ghost:hover { border-color: var(--gold); }
+  .nav .spacer { flex: 1; }
+  .form-error { color: var(--error); font-size: 14px; margin: 0; }
+  .saved-note { font-size: 12px; color: #6f675d; margin: 14px 0 0; text-align: right; }
+
+  /* ---------- Thank you ---------- */
+  .thanks { display: none; text-align: center; padding: 90px 24px 100px; }
+  .thanks.show { display: block; animation: fade .6s ease; }
+  .thanks img { width: 72px; margin: 0 auto 28px; }
+  .thanks h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 5vw, 48px); margin: 0 0 14px; }
+  .thanks p { color: var(--muted); max-width: 480px; margin: 0 auto 12px; }
+  .thanks .note { margin-top: 24px; font-size: 13px; color: var(--gold); }
+  .thanks .btn { margin-top: 24px; }
+
+  footer { text-align: center; color: #6f675d; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; padding: 0 16px 40px; }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 860px) {
+    .packages { grid-template-columns: 1fr; gap: 20px; }
+    .stage { position: sticky; top: 0; z-index: 3; aspect-ratio: 4 / 3.4; box-shadow: 0 12px 30px rgba(0,0,0,0.55); }
+    .stage img { object-position: center 58%; }
+    .stage-caption { padding: 40px 18px 14px; }
+    .stage-caption .name { font-size: 26px; margin: 0; }
+    .stage-caption .desc { display: none; }
+    .pkg-desc.short { display: none; }
+    .pkg-desc.full { display: block; }
+    .progress button { font-size: 0; letter-spacing: 0; }
+    .progress button .num { font-size: 20px; margin: 0; }
+  }
+  @media (max-width: 640px) {
+    .grid, .grid.three { grid-template-columns: 1fr; }
+    .progress button { padding: 16px 2px 14px; }
+    .step { padding-top: 38px; }
+    .pkg-body { grid-template-columns: 52px 1fr auto; gap: 14px; }
+    .pkg-thumb { width: 52px; height: 66px; }
+    .pkg-name { font-size: 21px; }
+    .nav { flex-wrap: wrap; }
+    .btn { padding: 14px 22px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="../assets/logo.webp" alt="Blackmore Entertainment">
+    <p class="eyebrow">Wedding Planning</p>
+    <h1>Let's plan your <em>perfect</em> day.</h1>
+    <p class="lede">This helps Blackmore Entertainment give you the best wedding experience possible. Fill out what you're able. You can come back and update it at any time.</p>
+    <a class="scroll-cue" href="#intake">Begin &darr;</a>
+  </div>
+</header>
+
+<main class="wrap" id="intake">
+  <div class="card">
+    <form id="intakeForm" novalidate>
+      <nav class="progress" aria-label="Form progress">
+        <button type="button" data-goto="contact"><span class="num">I</span>Keeping in Touch</button>
+        <button type="button" data-goto="scene"><span class="num">II</span>Setting the Scene</button>
+        <button type="button" data-goto="ceremony"><span class="num">III</span>Ceremony</button>
+        <button type="button" data-goto="dinner"><span class="num">IV</span>Cocktail &amp; Dinner</button>
+        <button type="button" data-goto="dancing"><span class="num">V</span>Dancing</button>
+        <button type="button" data-goto="experience"><span class="num">VI</span>Your Experience</button>
+      </nav>
+
+      <!-- ============ 1. KEEPING IN TOUCH ============ -->
+      <section class="step" data-step="contact">
+        <div class="step-head">
+          <p class="eyebrow">Step One</p>
+          <h2>Keeping in touch.</h2>
+          <p>Only your email is required. Everything else, fill in what you know today.</p>
+        </div>
+
+        <div class="grid">
+          <div class="field full">
+            <label for="email">Email<span class="req">*</span></label>
+            <p class="hint">Use the same email if you come back to update your answers.</p>
+            <input type="email" id="email" name="Email" required autocomplete="email">
+          </div>
+          <div class="field"><label for="name">My name is&hellip;</label><input type="text" id="name" name="My Name" autocomplete="name"></div>
+          <div class="field"><label for="partner">I'm getting married to&hellip;</label><input type="text" id="partner" name="Partner Name"></div>
+          <div class="field"><label for="date">We are getting married on&hellip;</label><input type="date" id="date" name="Wedding Date"></div>
+          <div class="field"><label for="weddingTime">The time of our wedding is&hellip;</label><input type="time" id="weddingTime" name="Wedding Time"></div>
+          <div class="field"><label for="phone">My phone number is&hellip;</label><input type="tel" id="phone" name="Phone" autocomplete="tel"></div>
+          <div class="field"><label for="address">My / our address is&hellip;</label><textarea class="short" id="address" name="Our Address" autocomplete="street-address"></textarea></div>
+          <div class="field full"><label for="contactNotes">Anything else?</label><textarea class="short" id="contactNotes" name="Contact - Anything Else"></textarea></div>
+        </div>
+      </section>
+
+      <!-- ============ 2. SETTING THE SCENE ============ -->
+      <section class="step" data-step="scene">
+        <div class="step-head">
+          <p class="eyebrow">Step Two</p>
+          <h2>Setting the scene.</h2>
+          <p>Where it's all happening, and what you'll need from us.</p>
+        </div>
+
+        <div class="grid">
+          <div class="field"><label for="ceremonyAddr">The address of our ceremony venue is&hellip;</label><textarea class="short" id="ceremonyAddr" name="Ceremony Venue Address"></textarea></div>
+          <div class="field"><label for="receptionAddr">The address of our reception venue is&hellip;</label><textarea class="short" id="receptionAddr" name="Reception Venue Address"></textarea></div>
+          <div class="field full">
+            <span class="label">Will the event require ceremony &amp; dance music?</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Music Needed" value="Ceremony & Dance Music"><span>Ceremony &amp; dance music</span></label>
+              <label class="chip"><input type="radio" name="Music Needed" value="Just Ceremony"><span>Just ceremony</span></label>
+              <label class="chip"><input type="radio" name="Music Needed" value="Just Dance music"><span>Just dance music</span></label>
+            </div>
+          </div>
+          <div class="field full">
+            <span class="label">Is either the ceremony or reception outside?</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Outdoor Event" value="Yes (Covering required)"><span>Yes (covering required)</span></label>
+              <label class="chip"><input type="radio" name="Outdoor Event" value="No"><span>No</span></label>
+            </div>
+          </div>
+          <div class="field full"><label for="planner">If you're using a wedding planner, please enter their name and phone number.</label><textarea class="short" id="planner" name="Wedding Planner"></textarea></div>
+          <div class="field full"><label for="sceneNotes">Anything else?</label><textarea class="short" id="sceneNotes" name="Scene - Anything Else"></textarea></div>
+        </div>
+      </section>
+
+      <!-- ============ 3. CEREMONY ============ -->
+      <section class="step" data-step="ceremony">
+        <div class="step-head">
+          <p class="eyebrow">Step Three</p>
+          <h2>The ceremony.</h2>
+          <p>Timing and the songs that carry everyone down the aisle.</p>
+        </div>
+
+        <div class="section-label">Timing</div>
+        <div class="grid">
+          <div class="field"><label for="guests">How many guests are expected?</label><input type="text" id="guests" name="Guest Count" inputmode="numeric"></div>
+          <div class="field"><label for="weddingParty">How many bridesmaids / groomsmen will be in attendance?</label><input type="text" id="weddingParty" name="Wedding Party Size"></div>
+        </div>
+        <div class="grid three" style="margin-top:24px">
+          <div class="field"><label for="ceremonyArrive">Guests will arrive at&hellip;</label><input type="time" id="ceremonyArrive" name="Ceremony Guest Arrival"></div>
+          <div class="field"><label for="ceremonyStart">The ceremony starts at&hellip;</label><input type="time" id="ceremonyStart" name="Ceremony Start"></div>
+          <div class="field"><label for="ceremonyEnd">The ceremony will go until&hellip;</label><input type="time" id="ceremonyEnd" name="Ceremony End"></div>
+        </div>
+
+        <div class="section-label">Music</div>
+        <div class="grid">
+          <div class="field full"><label for="seating">Do you have any requests for seating music?</label><textarea class="short" id="seating" name="Seating Music Requests"></textarea></div>
+          <div class="field full">
+            <label for="partyProc">The wedding party processional song is&hellip;</label>
+            <p class="hint">Played as the wedding party proceeds down the aisle.</p>
+            <input type="text" id="partyProc" name="Wedding Party Processional" placeholder="Song / Artist">
+          </div>
+          <div class="field full">
+            <label for="coupleProc">The bride(s) &amp; groom(s) processional song is&hellip;</label>
+            <p class="hint">The song the bride(s) or groom(s) will enter to.</p>
+            <input type="text" id="coupleProc" name="Couple Processional" placeholder="Song / Artist">
+          </div>
+          <div class="field full">
+            <label for="recessional">The recessional song is&hellip;</label>
+            <p class="hint">Plays after the ceremony as guests are leaving.</p>
+            <input type="text" id="recessional" name="Recessional" placeholder="Song / Artist">
+          </div>
+          <div class="field full"><label for="ceremonyNotes">Anything else?</label><textarea class="short" id="ceremonyNotes" name="Ceremony - Anything Else"></textarea></div>
+        </div>
+      </section>
+
+      <!-- ============ 4. COCKTAIL & DINNER ============ -->
+      <section class="step" data-step="dinner">
+        <div class="step-head">
+          <p class="eyebrow">Step Four</p>
+          <h2>Cocktail &amp; dinner hour.</h2>
+          <p>Your grand entrance, dinner, and the cake.</p>
+        </div>
+
+        <div class="section-label">Grand entrance</div>
+        <div class="grid">
+          <div class="field"><label for="cocktailArrive">Our guests will arrive to cocktail hour at&hellip;</label><input type="time" id="cocktailArrive" name="Cocktail Hour Arrival"></div>
+          <div class="field"><label for="partyEnter">The bridal party will enter at&hellip;</label><input type="time" id="partyEnter" name="Bridal Party Entrance Time"></div>
+          <div class="field full">
+            <label for="entranceOrder">The order of the bridal party &amp; parents' entrance is&hellip;</label>
+            <p class="hint">Please use full names in an "Example &amp; Example – Song" format. Entrance order is usually the same as the ceremony, in reverse, starting with those furthest from the officiant.</p>
+            <textarea id="entranceOrder" name="Entrance Order" placeholder="Jane Smith &amp; John Doe – Song Title&#10;..."></textarea>
+          </div>
+          <div class="field"><label for="announced">We would like to be announced as&hellip;</label><input type="text" id="announced" name="Announce Us As"></div>
+          <div class="field"><label for="entranceSong">Our entrance music is&hellip;</label><input type="text" id="entranceSong" name="Our Entrance Song" placeholder="Song / Artist"></div>
+        </div>
+
+        <div class="section-label">Dinner &amp; cake</div>
+        <div class="grid">
+          <div class="field"><label for="dinnerTime">Dinner will be served at&hellip;</label><input type="time" id="dinnerTime" name="Dinner Time"></div>
+          <div class="field"><label for="cakeTime">The time of the cake cutting will be&hellip;</label><input type="time" id="cakeTime" name="Cake Cutting Time"></div>
+          <div class="field full">
+            <span class="label">Cake cutting will take place&hellip;</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Cake Cutting" value="Before Dinner"><span>Before dinner</span></label>
+              <label class="chip"><input type="radio" name="Cake Cutting" value="After Dinner"><span>After dinner</span></label>
+              <label class="chip"><input type="radio" name="Cake Cutting" value="At photographers discretion"><span>At the photographer's discretion</span></label>
+            </div>
+          </div>
+          <div class="field"><label for="cakeSong">Our cake cutting song will be&hellip;</label><input type="text" id="cakeSong" name="Cake Cutting Song" placeholder="Song / Artist"></div>
+          <div class="field">
+            <span class="label">Will a cake cutting announcement need to be made?</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Cake Announcement" value="Yes"><span>Yes</span></label>
+              <label class="chip"><input type="radio" name="Cake Announcement" value="No"><span>No</span></label>
+            </div>
+          </div>
+          <div class="field full">
+            <span class="label">Will vendor food be provided?</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Vendor Food" value="Yes"><span>Yes</span></label>
+              <label class="chip"><input type="radio" name="Vendor Food" value="No"><span>No</span></label>
+            </div>
+          </div>
+          <div class="field full"><label for="dinnerNotes">Anything else?</label><textarea class="short" id="dinnerNotes" name="Dinner - Anything Else"></textarea></div>
+        </div>
+      </section>
+
+      <!-- ============ 5. DANCING ============ -->
+      <section class="step" data-step="dancing">
+        <div class="step-head">
+          <p class="eyebrow">Step Five</p>
+          <h2>Let's dance.</h2>
+          <p>Your special dances and the music that will fill the floor.</p>
+        </div>
+
+        <div class="section-label">Special dances</div>
+        <p class="tip">We recommend placing the traditional dances right after the bridal party's entrance.</p>
+        <div class="grid">
+          <div class="field full">
+            <span class="label">The traditional dances will take place&hellip;</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Traditional Dances" value="Before Dinner"><span>Before dinner</span></label>
+              <label class="chip"><input type="radio" name="Traditional Dances" value="After Dinner"><span>After dinner</span></label>
+            </div>
+          </div>
+          <div class="field full"><label for="firstDance">The first dance song will be&hellip;</label><input type="text" id="firstDance" name="First Dance" placeholder="Song / Artist"></div>
+          <div class="field"><label for="fatherDance">Father of the bride dance song will be&hellip;</label><input type="text" id="fatherDance" name="Father Daughter Dance" placeholder="Song / Artist"></div>
+          <div class="field"><label for="motherDance">Mother of the groom dance song will be&hellip;</label><input type="text" id="motherDance" name="Mother Son Dance" placeholder="Song / Artist"></div>
+          <div class="field full"><label for="customDances">Any custom dances can be entered here.</label><textarea class="short" id="customDances" name="Custom Dances"></textarea></div>
+          <div class="field full">
+            <span class="label">Will there be a bouquet / garter toss?</span>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="Bouquet Garter Toss" value="Yes"><span>Yes</span></label>
+              <label class="chip"><input type="radio" name="Bouquet Garter Toss" value="No"><span>No</span></label>
+            </div>
+          </div>
+          <div class="field full"><label for="otherDances">Any other dance events? (Generations dance, dollar dance, etc.)</label><textarea class="short" id="otherDances" name="Other Dance Events"></textarea></div>
+        </div>
+
+        <div class="section-label">Your playlist</div>
+        <div class="grid">
+          <div class="field">
+            <label for="mustPlay">10 "gotta have it" songs</label>
+            <p class="hint">Your dance playlist will be curated based on these.</p>
+            <textarea id="mustPlay" name="Gotta Have It Songs" style="min-height:220px"></textarea>
+          </div>
+          <div class="field">
+            <label for="doNotPlay">10 "don't play it" songs</label>
+            <p class="hint">Songs you do not want to hear.</p>
+            <textarea id="doNotPlay" name="Do Not Play Songs" style="min-height:220px"></textarea>
+          </div>
+          <div class="field full"><label for="perfectDj">The perfect DJ would&hellip;</label><textarea id="perfectDj" name="The Perfect DJ Would"></textarea></div>
+        </div>
+      </section>
+
+      <!-- ============ 6. YOUR EXPERIENCE (PACKAGE) ============ -->
+      <section class="step" data-step="experience">
+        <div class="step-head">
+          <p class="eyebrow">Final Step</p>
+          <h2>Choose your experience.</h2>
+          <p><span id="pkgVerb">Hover over</span> each option to see it in the room.</p>
+        </div>
+
+        <div class="packages">
+          <div class="stage" id="stage" aria-live="polite">
+            <!-- images injected by script -->
+            <div class="stage-caption">
+              <div class="tier" id="stageTier"></div>
+              <div class="name" id="stageName"></div>
+              <p class="desc" id="stageDesc"></p>
+            </div>
+          </div>
+
+          <div>
+            <div class="pkg-list" id="pkgList"><!-- cards injected by script --></div>
+            <p class="pkg-unsure">Not sure yet? <a id="pkgUnsure">Help me decide</a> and we'll walk through it together.</p>
+
+            <div class="field booth" id="boothWrap" hidden>
+              <span class="label">Booth &amp; speaker scrim color</span>
+              <div class="chips">
+                <label class="chip"><input type="radio" name="Booth Color" value="White"><span>White</span></label>
+                <label class="chip"><input type="radio" name="Booth Color" value="Black"><span>Black</span></label>
+                <label class="chip"><input type="radio" name="Booth Color" value="Not sure yet"><span>Not sure yet</span></label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="nav-wrap">
+        <div class="nav">
+          <button type="button" class="btn ghost" id="backBtn" hidden>Back</button>
+          <p class="form-error" id="formError" role="alert"></p>
+          <span class="spacer"></span>
+          <button type="button" class="btn" id="nextBtn">Continue</button>
+        </div>
+        <p class="saved-note" id="savedNote" hidden>Your answers are saved on this device as you go.</p>
+      </div>
+    </form>
+
+    <div class="thanks" id="thanks">
+      <img src="../assets/logo.webp" alt="">
+      <h2>Thank you!</h2>
+      <p>We've received your details and can't wait to celebrate with you.</p>
+      <p>Need to change something? Come back to this page anytime and submit again. Your answers are saved on this device, so you'll only need to change what's new.</p>
+      <button type="button" class="btn ghost" id="editAgain">Edit my answers</button>
+      <p class="note" id="previewNote" hidden>Preview mode: no backend is connected yet, so nothing was sent.</p>
+    </div>
+  </div>
+</main>
+
+<footer>&copy; <span id="yr"></span> Blackmore Entertainment</footer>
+
+<script>
+/* ==========================================================================
+   SETTINGS: the only things you should need to edit.
+   ========================================================================== */
+
+// Paste the Web app URL from your Google Form's script here (see SETUP.md).
+// Leave it "" to run in preview mode (nothing is sent).
+const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbxv9eqatRNCso65fRbVTGnKkCP89Kq7AESNJrmZ_9FEgXk5vamqemY7u5cwXECHMWFEJw/exec";
+
+// Your setups, in order.
+//   short: one line shown on the card (desktop)
+//   desc:  full description shown over the photo (desktop) and on the card (phone)
+//   boothColor: true shows the "black or white booth" choice when picked
+const PACKAGES = [
+  { id: "core", 
+    name: "Core", tier: "The Experience", image: "../assets/core.jpg", boothColor: false,
+    short: "A clean, professional table setup with black linens and speaker scrims.",
+    desc: "A clean, professional DJ setup focused on what matters most: great music and a packed dance floor. Featuring a streamlined table setup with black linens, speaker scrims, and professional DJ equipment." },
+  { id: "select", 
+    name: "Select", tier: "The Experience", image: "../assets/select.jpg", boothColor: true,
+    short: "A sleek, backlit DJ booth and dance floor lighting, in black or white.",
+    desc: "Take your setup up a notch with a sleek, backlit DJ booth and dance floor lighting. Customize your look with your choice of black or white booth and speaker scrims. It's a more polished setup that brings a little extra atmosphere to the room." },
+  { id: "pro", 
+    name: "Pro", tier: "The Experience", image: "../assets/pro.jpg", boothColor: true,
+    short: "Everything in Select, plus professional subwoofers for deep, full bass.",
+    desc: "Everything in Select, with one major addition: serious low-end power. Professional subwoofers deliver the deep, full-bodied bass that brings your favorite dance tracks to life. Perfect for couples who want to really feel the music." },
+  { id: "elite", 
+    name: "Elite", tier: "The Experience", image: "../assets/elite.jpg", boothColor: true,
+    short: "Everything in Pro, plus intelligent lighting and moving heads.",
+    desc: "Everything in Pro, amplified with additional intelligent lighting and moving heads. Dynamic beams, movement, and club-inspired lighting effects transform your dance floor into an immersive party experience. For couples who want a little more nightlife energy at their wedding." },
+  { id: "signature", 
+    name: "Signature Production", tier: "Our Largest Presentation", image: "../assets/signature.jpg", boothColor: false,
+    short: "An oversized booth with a front-facing display for your monogram and photos.",
+    desc: "Our largest and most customizable DJ presentation. Featuring an upgraded oversized DJ booth with an integrated front-facing display, perfect for showcasing your wedding monogram, engagement photos, videos, and special moments with family. A personalized visual centerpiece that makes your entertainment setup part of the overall wedding design." },
+];
+
+const DRAFT_KEY = "blackmore-wedding-intake";
+
+/* ========================================================================== */
+
+(function () {
+  const form = document.getElementById("intakeForm");
+  const allSteps = [...form.querySelectorAll("section.step")];
+  const tabs = [...form.querySelectorAll(".progress button")];
+  const nextBtn = document.getElementById("nextBtn");
+  const backBtn = document.getElementById("backBtn");
+  const errorEl = document.getElementById("formError");
+  document.getElementById("yr").textContent = new Date().getFullYear();
+
+  /* ---------- Package picker ---------- */
+  const stage = document.getElementById("stage");
+  const list = document.getElementById("pkgList");
+  const stageTier = document.getElementById("stageTier");
+  const stageName = document.getElementById("stageName");
+  const stageDesc = document.getElementById("stageDesc");
+  const boothWrap = document.getElementById("boothWrap");
+  const imgs = {};
+
+  PACKAGES.forEach((p, i) => {
+    const img = new Image();
+    img.src = p.image;
+    img.alt = p.name + " setup";
+    img.loading = i === 0 ? "eager" : "lazy";
+    stage.insertBefore(img, stage.firstChild);
+    imgs[p.id] = img;
+
+    const label = document.createElement("label");
+    label.className = "pkg";
+    label.dataset.id = p.id;
+    label.innerHTML = `
+      <input type="radio" name="Package" value="${p.name}">
+      <div class="pkg-body">
+        <img class="pkg-thumb" src="${p.image}" alt="" loading="lazy">
+        <div>
+          <p class="pkg-name">${p.name}</p>
+          <p class="pkg-desc short">${p.short}</p>
+          <p class="pkg-desc full">${p.desc}</p>
+        </div>
+        <span class="pkg-check" aria-hidden="true"></span>
+      </div>`;
+    list.appendChild(label);
+  });
+
+  // "Help me decide" option
+  const unsure = document.createElement("input");
+  unsure.type = "radio"; unsure.name = "Package"; unsure.value = "Undecided - wants help choosing"; unsure.hidden = true;
+  list.appendChild(unsure);
+  document.getElementById("pkgUnsure").addEventListener("click", () => {
+    unsure.checked = true;
+    onPackageChange();
+    saveDraft();
+  });
+
+  let current = null;
+  function showPkg(id, undecided) {
+    const p = PACKAGES.find(x => x.id === id);
+    if (!p) return;
+    if (current !== id) {
+      Object.entries(imgs).forEach(([k, el]) => el.classList.toggle("show", k === id));
+      current = id;
+    }
+    stageTier.textContent = undecided ? "Still deciding" : p.tier;
+    stageName.textContent = undecided ? "We'll help you choose" : p.name;
+    stageDesc.textContent = undecided ? "No problem. We'll walk through each option with you and find the right fit for your venue and crowd." : p.desc;
+  }
+  function selectedPkg() {
+    const checked = list.querySelector(".pkg input:checked");
+    return checked ? PACKAGES.find(p => p.id === checked.closest(".pkg").dataset.id) : null;
+  }
+  function restore() {
+    const p = selectedPkg();
+    if (p) showPkg(p.id);
+    else if (unsure.checked) showPkg(current || PACKAGES[0].id, true);
+    else showPkg(PACKAGES[0].id);
+  }
+  function onPackageChange() {
+    const p = selectedPkg();
+    boothWrap.hidden = !(p && p.boothColor);
+    restore();
+  }
+
+  list.querySelectorAll(".pkg").forEach(label => {
+    // mouse hover previews; touch devices use tap (change)
+    label.addEventListener("mouseenter", () => showPkg(label.dataset.id));
+    label.addEventListener("focusin", () => showPkg(label.dataset.id));
+    label.querySelector("input").addEventListener("change", onPackageChange);
+  });
+  list.addEventListener("mouseleave", restore);
+  if (window.matchMedia("(hover: none)").matches) document.getElementById("pkgVerb").textContent = "Tap";
+
+  /* ---------- Draft autosave (this device only) ---------- */
+  const savedNote = document.getElementById("savedNote");
+  function saveDraft() {
+    try {
+      const obj = {};
+      for (const [k, v] of new FormData(form).entries()) (obj[k] = obj[k] || []).push(v);
+      localStorage.setItem(DRAFT_KEY, JSON.stringify(obj));
+      savedNote.hidden = false;
+    } catch (e) { /* storage unavailable: fine */ }
+  }
+  function loadDraft() {
+    let obj;
+    try { obj = JSON.parse(localStorage.getItem(DRAFT_KEY) || "null"); } catch (e) { obj = null; }
+    if (!obj) return;
+    Object.entries(obj).forEach(([name, vals]) => {
+      form.querySelectorAll(`[name="${CSS.escape(name)}"]`).forEach(el => {
+        if (el.type === "radio" || el.type === "checkbox") el.checked = vals.includes(el.value);
+        else el.value = vals[0] || "";
+      });
+    });
+    savedNote.hidden = false;
+  }
+  form.addEventListener("input", saveDraft);
+  form.addEventListener("change", saveDraft);
+
+  /* ---------- Steps (Ceremony is skipped for "Just Dance music") ---------- */
+  function visibleSteps() {
+    const music = form.querySelector('input[name="Music Needed"]:checked');
+    const skipCeremony = music && music.value === "Just Dance music";
+    return allSteps.filter(s => !(skipCeremony && s.dataset.step === "ceremony"));
+  }
+  function syncTabs() {
+    const vis = visibleSteps();
+    const roman = ["I", "II", "III", "IV", "V", "VI", "VII"];
+    let n = 0;
+    tabs.forEach(t => {
+      const show = vis.some(s => s.dataset.step === t.dataset.goto);
+      t.hidden = !show;
+      if (show) t.querySelector(".num").textContent = roman[n++];
+    });
+  }
+  form.querySelectorAll('input[name="Music Needed"]').forEach(r => r.addEventListener("change", syncTabs));
+
+  let stepKey = "contact";
+  let maxReached = 0;
+
+  function go(key, scroll = true) {
+    const vis = visibleSteps();
+    let idx = vis.findIndex(s => s.dataset.step === key);
+    if (idx < 0) idx = 0;
+    stepKey = vis[idx].dataset.step;
+    maxReached = Math.max(maxReached, idx);
+    allSteps.forEach(s => s.classList.toggle("active", s.dataset.step === stepKey));
+    tabs.forEach(t => {
+      const k = vis.findIndex(s => s.dataset.step === t.dataset.goto);
+      t.classList.toggle("active", k === idx);
+      t.classList.toggle("done", k >= 0 && k !== idx && k <= maxReached);
+    });
+    backBtn.hidden = idx === 0;
+    nextBtn.textContent = idx === vis.length - 1 ? "Submit" : "Continue";
+    errorEl.textContent = "";
+    if (scroll) document.getElementById("intake").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function validStep(key) {
+    const s = allSteps.find(x => x.dataset.step === key);
+    s.classList.add("touched");
+    const bad = [...s.querySelectorAll("input, select, textarea")].find(f => !f.checkValidity());
+    if (bad) {
+      errorEl.textContent = bad.type === "email" ? "Please enter a valid email so we can reach you." : "Please check the highlighted field.";
+      bad.focus();
+      return false;
+    }
+    return true;
+  }
+
+  function idxOf(key) { return visibleSteps().findIndex(s => s.dataset.step === key); }
+
+  tabs.forEach(t => t.addEventListener("click", () => {
+    const target = idxOf(t.dataset.goto), cur = idxOf(stepKey);
+    if (target === cur || target < 0) return;
+    if (target < cur) return go(t.dataset.goto);
+    if (target > maxReached) return;
+    const vis = visibleSteps();
+    for (let j = cur; j < target; j++) if (!validStep(vis[j].dataset.step)) return go(vis[j].dataset.step);
+    go(t.dataset.goto);
+  }));
+
+  backBtn.addEventListener("click", () => {
+    const vis = visibleSteps(); go(vis[Math.max(0, idxOf(stepKey) - 1)].dataset.step);
+  });
+  nextBtn.addEventListener("click", () => {
+    if (!validStep(stepKey)) return;
+    const vis = visibleSteps(), i = idxOf(stepKey);
+    if (i < vis.length - 1) go(vis[i + 1].dataset.step);
+    else submit();
+  });
+
+  // Enter key moves forward instead of submitting early
+  form.addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); nextBtn.click(); }
+  });
+  form.addEventListener("submit", e => e.preventDefault());
+
+  /* ---------- Collect answers ---------- */
+  // Sends plain "Question Name = answer" pairs. The script inside your
+  // Google Form decides which form question each one goes into.
+  function buildPayload() {
+    const answers = {};
+    for (const [k, v] of new FormData(form).entries()) (answers[k] = answers[k] || []).push(v);
+
+    // Skip ceremony answers if they chose "Just Dance music"
+    const skipped = allSteps.filter(s => !visibleSteps().includes(s));
+    skipped.forEach(s => s.querySelectorAll("[name]").forEach(el => delete answers[el.name]));
+
+    // Booth color only applies to some packages
+    const p = selectedPkg();
+    if (!(p && p.boothColor)) delete answers["Booth Color"];
+
+    const out = new URLSearchParams();
+    Object.entries(answers).forEach(([name, vals]) => {
+      const v = vals.join(", ").trim();
+      if (v) out.append(name, v);
+    });
+    return out;
+  }
+  window.__buildPayload = buildPayload; // used for testing
+
+  /* ---------- Submit ---------- */
+  async function submit() {
+    const email = document.getElementById("email");
+    if (!email.checkValidity()) { go("contact"); validStep("contact"); return; }
+
+    const data = buildPayload();
+
+    nextBtn.disabled = true;
+    nextBtn.textContent = "Sending\u2026";
+
+    try {
+      if (SUBMIT_URL) {
+        let result = null;
+        try {
+          const res = await fetch(SUBMIT_URL, { method: "POST", body: data });
+          result = await res.json();
+        } catch (readErr) {
+          // Google sometimes hides its reply from the browser even though the
+          // answers were saved. Only a clear "not ok" reply counts as a failure.
+          result = null;
+        }
+        if (result && result.ok === false) throw new Error(result.error || "Not saved");
+      } else {
+        console.info("Preview mode. Data:", Object.fromEntries(data));
+        document.getElementById("previewNote").hidden = false;
+      }
+      form.hidden = true;
+      document.getElementById("thanks").classList.add("show");
+      document.getElementById("intake").scrollIntoView({ behavior: "smooth", block: "start" });
+    } catch (err) {
+      console.error(err);
+      errorEl.textContent = "Something went wrong sending your details. Please try again in a moment.";
+    } finally {
+      nextBtn.disabled = false;
+      nextBtn.textContent = "Submit";
+    }
+  }
+
+  document.getElementById("editAgain").addEventListener("click", () => {
+    document.getElementById("thanks").classList.remove("show");
+    form.hidden = false;
+    go("contact");
+  });
+
+  /* ---------- Init ---------- */
+  loadDraft();
+  syncTabs();
+  onPackageChange();
+  go("contact", false);
+})();
+</script>
+</body>
+</html>
