@@ -78,6 +78,8 @@ def page(meta, body):
     desc = html.escape(meta["description"], quote=True)
     image = SITE + meta.get("image", "/assets/signature.jpg")
     robots = '\n<meta name="robots" content="noindex, nofollow">' if meta.get("noindex") else ""
+    url = SITE + meta["path"]
+    canonical = "" if meta["path"].endswith(".html") else '<link rel="canonical" href="' + url + '">'
     return f"""<!doctype html>
 <html lang="en" class="no-js">
 <head>
@@ -85,7 +87,7 @@ def page(meta, body):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{full_title}</title>
 <meta name="description" content="{desc}">{robots}
-<link rel="canonical" href="{SITE}{meta['path']}">
+{canonical}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackmore Entertainment">
 <meta property="og:title" content="{full_title}">
@@ -114,7 +116,13 @@ def main():
     for src in sorted(PAGES.glob("*.html")):
         first, body = src.read_text().split("\n", 1)
         meta = json.loads(first)
-        out = ROOT / meta["path"].strip("/") / "index.html" if meta["path"] != "/" else ROOT / "index.html"
+        path = meta["path"]
+        if path == "/":
+            out = ROOT / "index.html"
+        elif path.endswith(".html"):          # e.g. the 404 page
+            out = ROOT / path.strip("/")
+        else:
+            out = ROOT / path.strip("/") / "index.html"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(page(meta, body))
         print("built", out.relative_to(ROOT))

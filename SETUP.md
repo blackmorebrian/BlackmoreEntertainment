@@ -10,6 +10,7 @@
 | Services | `services/index.html` | |
 | Foam Parties | `foam-parties/index.html` | Needs a real photo + "bookings include" details |
 | About | `about/index.html` | Needs photos of Brian & Matt |
+| 404 page | `404.html` | Shown for any address that doesn't exist |
 | Contact | `contact/index.html` | "Check your date" form, emailed to you (see Contact form setup below) |
 | Wedding planning form | `plan/index.html` | Unlisted, hidden from Google. Send the link to booked couples |
 
