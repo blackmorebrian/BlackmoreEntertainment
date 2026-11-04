@@ -8,7 +8,7 @@
  */
 
 // Where inquiries are emailed.
-const INQUIRY_EMAIL = "blackmore.brian@gmail.com";
+const INQUIRY_EMAIL = "blackmoreentertainment@gmail.com";
 
 function doPost(e) {
   try {
