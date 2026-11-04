@@ -399,3 +399,8 @@ input::placeholder, textarea::placeholder { color: #6f675d; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Four-up feature grid (Foam package) */
+.features.four { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 920px) { .features.four { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .features.four { grid-template-columns: 1fr; } }
