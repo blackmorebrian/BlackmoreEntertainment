@@ -97,7 +97,7 @@ h1 em, h2 em { font-style: italic; color: var(--gold); }
 }
 .text-link:hover { color: var(--gold); }
 .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-.center .actions { justify-content: center; }
+.center .actions, .cta .actions { justify-content: center; }
 
 /* ---------- Header ---------- */
 .site-header {
