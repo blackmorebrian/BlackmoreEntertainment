@@ -274,6 +274,8 @@
   }
   .pkg-thumb { width: 64px; height: 80px; object-fit: cover; border-radius: 2px; filter: saturate(.85); }
   .pkg-name { font-family: var(--serif); font-size: 24px; line-height: 1.1; margin: 0 0 4px; }
+  .pkg-price { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin: 0 0 6px; }
+  .stage-caption .price { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin: -2px 0 10px; }
   .pkg-desc { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.5; }
   .pkg-desc.full { display: none; }
   .pkg-check {
@@ -333,7 +335,7 @@
     .stage img { object-position: center 58%; }
     .stage-caption { padding: 40px 18px 14px; }
     .stage-caption .name { font-size: 26px; margin: 0; }
-    .stage-caption .desc { display: none; }
+    .stage-caption .desc, .stage-caption .price { display: none; }
     .pkg-desc.short { display: none; }
     .pkg-desc.full { display: block; }
     .progress button { font-size: 0; letter-spacing: 0; }
@@ -588,12 +590,14 @@
             <div class="stage-caption">
               <div class="tier" id="stageTier"></div>
               <div class="name" id="stageName"></div>
+              <div class="price" id="stagePrice"></div>
               <p class="desc" id="stageDesc"></p>
             </div>
           </div>
 
           <div>
             <div class="pkg-list" id="pkgList"><!-- cards injected by script --></div>
+            <p class="pkg-unsure">Starting prices. Your final quote depends on your date, venue, timeline and ceremony coverage.</p>
             <p class="pkg-unsure">Not sure yet? <a id="pkgUnsure">Help me decide</a> and we'll walk through it together.</p>
 
             <div class="field booth" id="boothWrap" hidden>
@@ -644,25 +648,26 @@ const SUBMIT_URL = "https://script.google.com/macros/s/AKfycbxv9eqatRNCso65fRbVT
 // Your setups, in order.
 //   short: one line shown on the card (desktop)
 //   desc:  full description shown over the photo (desktop) and on the card (phone)
+//   price: starting price shown as "From $..."
 //   boothColor: true shows the "black or white booth" choice when picked
 const PACKAGES = [
-  { id: "core", 
+  { id: "core", price: "$1,750",
     name: "Core", tier: "The Experience", image: "../assets/core.jpg", boothColor: false,
     short: "A clean, professional table setup with black linens and speaker scrims.",
     desc: "A clean, professional DJ setup focused on what matters most: great music and a packed dance floor. Featuring a streamlined table setup with black linens, speaker scrims, and professional DJ equipment." },
-  { id: "select", 
+  { id: "select", price: "$2,150",
     name: "Select", tier: "The Experience", image: "../assets/select.jpg", boothColor: true,
     short: "A sleek, backlit DJ booth and dance floor lighting, in black or white.",
     desc: "Take your setup up a notch with a sleek, backlit DJ booth and dance floor lighting. Customize your look with your choice of black or white booth and speaker scrims. It's a more polished setup that brings a little extra atmosphere to the room." },
-  { id: "pro", 
+  { id: "pro", price: "$2,550",
     name: "Pro", tier: "The Experience", image: "../assets/pro.jpg", boothColor: true,
     short: "Everything in Select, plus professional subwoofers for deep, full bass.",
     desc: "Everything in Select, with one major addition: serious low-end power. Professional subwoofers deliver the deep, full-bodied bass that brings your favorite dance tracks to life. Perfect for couples who want to really feel the music." },
-  { id: "elite", 
+  { id: "elite", price: "$3,150",
     name: "Elite", tier: "The Experience", image: "../assets/elite.jpg", boothColor: true,
     short: "Everything in Pro, plus intelligent lighting and moving heads.",
     desc: "Everything in Pro, amplified with additional intelligent lighting and moving heads. Dynamic beams, movement, and club-inspired lighting effects transform your dance floor into an immersive party experience. For couples who want a little more nightlife energy at their wedding." },
-  { id: "signature", 
+  { id: "signature", price: "$3,950",
     name: "Signature Production", tier: "Our Largest Presentation", image: "../assets/signature.jpg", boothColor: false,
     short: "An oversized booth with a front-facing display for your monogram and photos.",
     desc: "Our largest and most customizable DJ presentation. Featuring an upgraded oversized DJ booth with an integrated front-facing display, perfect for showcasing your wedding monogram, engagement photos, videos, and special moments with family. A personalized visual centerpiece that makes your entertainment setup part of the overall wedding design." },
@@ -687,6 +692,7 @@ const DRAFT_KEY = "blackmore-wedding-intake";
   const stageTier = document.getElementById("stageTier");
   const stageName = document.getElementById("stageName");
   const stageDesc = document.getElementById("stageDesc");
+  const stagePrice = document.getElementById("stagePrice");
   const boothWrap = document.getElementById("boothWrap");
   const imgs = {};
 
@@ -707,6 +713,7 @@ const DRAFT_KEY = "blackmore-wedding-intake";
         <img class="pkg-thumb" src="${p.image}" alt="" loading="lazy">
         <div>
           <p class="pkg-name">${p.name}</p>
+          <p class="pkg-price">From ${p.price}</p>
           <p class="pkg-desc short">${p.short}</p>
           <p class="pkg-desc full">${p.desc}</p>
         </div>
@@ -735,6 +742,7 @@ const DRAFT_KEY = "blackmore-wedding-intake";
     }
     stageTier.textContent = undecided ? "Still deciding" : p.tier;
     stageName.textContent = undecided ? "We'll help you choose" : p.name;
+    stagePrice.textContent = undecided ? "" : "From " + p.price;
     stageDesc.textContent = undecided ? "No problem. We'll walk through each option with you and find the right fit for your venue and crowd." : p.desc;
   }
   function selectedPkg() {

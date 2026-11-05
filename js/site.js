@@ -9,19 +9,19 @@ const CONTACT_URL = "https://script.google.com/macros/s/AKfycbwQ2Id9fs3TFP_wjQVx
 
 // Your DJ setups, in order. Used by the showcase on Home, Weddings and Events.
 const PACKAGES = [
-  { id: "core", price: "$1,750", name: "Core", tier: "The Experience", image: "/assets/core.jpg",
+  { id: "core", name: "Core", tier: "The Experience", image: "/assets/core.jpg",
     short: "A clean, professional table setup with black linens and speaker scrims.",
     desc: "A clean, professional DJ setup focused on what matters most: great music and a packed dance floor. Featuring a streamlined table setup with black linens, speaker scrims, and professional DJ equipment." },
-  { id: "select", price: "$2,150", name: "Select", tier: "The Experience", image: "/assets/select.jpg",
+  { id: "select", name: "Select", tier: "The Experience", image: "/assets/select.jpg",
     short: "A sleek, backlit DJ booth and dance floor lighting, in black or white.",
     desc: "Take your setup up a notch with a sleek, backlit DJ booth and dance floor lighting. Customize your look with your choice of black or white booth and speaker scrims. It's a more polished setup that brings a little extra atmosphere to the room." },
-  { id: "pro", price: "$2,550", name: "Pro", tier: "The Experience", image: "/assets/pro.jpg",
+  { id: "pro", name: "Pro", tier: "The Experience", image: "/assets/pro.jpg",
     short: "Everything in Select, plus professional subwoofers for deep, full bass.",
     desc: "Everything in Select, with one major addition: serious low-end power. Professional subwoofers deliver the deep, full-bodied bass that brings your favorite dance tracks to life. Perfect for a crowd that wants to really feel the music." },
-  { id: "elite", price: "$3,150", name: "Elite", tier: "The Experience", image: "/assets/elite.jpg",
+  { id: "elite", name: "Elite", tier: "The Experience", image: "/assets/elite.jpg",
     short: "Everything in Pro, plus intelligent lighting and moving heads.",
     desc: "Everything in Pro, amplified with additional intelligent lighting and moving heads. Dynamic beams, movement, and club-inspired lighting effects transform your dance floor into an immersive party experience. For any event that deserves a little more nightlife energy." },
-  { id: "signature", price: "$3,950", name: "Signature Production", tier: "Our Largest Presentation", image: "/assets/signature.jpg",
+  { id: "signature", name: "Signature Production", tier: "Our Largest Presentation", image: "/assets/signature.jpg",
     short: "An oversized booth with a front-facing display for your monogram, logo or photos.",
     desc: "Our largest and most customizable DJ presentation. Featuring an upgraded oversized DJ booth with an integrated front-facing display, perfect for showcasing a wedding monogram, company logo, photos, videos and special moments. A personalized visual centerpiece that makes your entertainment setup part of the overall event design." },
 ];
@@ -85,7 +85,7 @@ document.querySelectorAll("[data-year]").forEach(el => el.textContent = new Date
 // data-prices shows each setup's "From $" price (Weddings page only).
 document.querySelectorAll("[data-showcase]").forEach(root => {
   const linkTpl = root.dataset.link || "";
-  const showPrice = "prices" in root.dataset;
+  const showPrice = "prices" in root.dataset && PACKAGES.every(p => p.price);
   root.classList.add("packages");
   root.innerHTML = `
     <div class="stage" aria-live="polite">
