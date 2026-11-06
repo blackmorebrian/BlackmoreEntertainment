@@ -78,6 +78,7 @@ def page(meta, body):
     full_title = "Blackmore Entertainment" if meta["path"] == "/" else f"{title} | Blackmore Entertainment"
     desc = html.escape(meta["description"], quote=True)
     image = SITE + meta.get("image", "/assets/signature.jpg")
+    body_cls = ' class="' + meta["body_class"] + '"' if meta.get("body_class") else ""
     robots = '\n<meta name="robots" content="noindex, nofollow">' if meta.get("noindex") else ""
     url = SITE + meta["path"]
     canonical = "" if meta["path"].endswith(".html") else '<link rel="canonical" href="' + url + '">'
@@ -102,7 +103,7 @@ def page(meta, body):
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/site.css">
 </head>
-<body>
+<body{body_cls}>
 {header(meta['path'])}
 <main>
 {body.strip()}

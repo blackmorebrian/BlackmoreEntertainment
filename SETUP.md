@@ -12,6 +12,7 @@
 | About | `about/index.html` | Brian's story and photo |
 | 404 page | `404.html` | Shown for any address that doesn't exist |
 | Venue pages | `venues/aria/`, `venues/anthonys-ocean-view/` | One page per venue you've played. Source files: `_build/pages/10-venue-*.html` |
+| Emo wedding page | `emo-weddings/` | Hidden from the menu, but on Google. Pink theme comes from `"body_class": "emo"`. Source: `_build/pages/12-emo-weddings.html` |
 | Contact | `contact/index.html` | "Check your date" form, emailed to you (see Contact form setup below) |
 | Wedding planning form | `plan/index.html` | Unlisted, hidden from Google. Send the link to booked couples |
 
