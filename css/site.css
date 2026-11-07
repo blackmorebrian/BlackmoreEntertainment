@@ -417,3 +417,6 @@ body.emo { --gold: #ff4f9a; --gold-hover: #ff78b2; --gold-soft: rgba(255, 79, 15
 body.emo .hero-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 15% 85%, rgba(255,79,154,.24), transparent 60%); }
 .emo-logo { display: grid; place-items: center; padding: 48px; border: 1px solid var(--line); border-radius: var(--radius); background: radial-gradient(circle at 50% 45%, rgba(255,79,154,.16), transparent 65%), var(--surface); }
 .emo-logo img { width: 100%; max-width: 420px; height: auto; filter: drop-shadow(0 0 28px rgba(255,79,154,.35)); }
+
+/* Spam honeypot: hidden from people, visible to bots */
+.hp { position: absolute !important; left: -9999px; width: 1px; height: 1px; overflow: hidden; }

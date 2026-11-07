@@ -37,6 +37,14 @@ The Contact page emails each inquiry to you. It uses its own small script, **not
 5. Copy the **Web app URL** and paste it into `js/site.js` on the `const CONTACT_URL = "...";` line (already done).
    Or send the URL to Claude.
 
+**Spam protection.** The script drops obvious bots without emailing you: a hidden field
+only bots fill in, a form sent in under 3 seconds, or a post that didn't come from the website.
+Anything else that looks off (past event date, a name like "THjVBIsUROcJvRMGRSQ") still
+reaches you, with **[Possible spam]** at the start of the subject.
+
+**Updating the script later** (keeps the same URL): paste the new code, save, then
+**Deploy → Manage deployments → ✏️ Edit → Version: New version → Deploy**.
+
 
 ---
 

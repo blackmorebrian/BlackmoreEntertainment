@@ -158,15 +158,29 @@ document.querySelectorAll("[data-showcase]").forEach(root => {
   form.querySelectorAll('input[name="Event Type"]').forEach(r => r.addEventListener("change", syncPackage));
   syncPackage();
 
+  // Spam protection: no past event dates, and note when the page loaded so the
+  // email script can drop bot submissions sent in under a few seconds.
+  const loadedAt = Date.now();
+  const now = new Date();
+  const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10);
+  form.querySelector("#iDate").min = today;
+
   form.addEventListener("submit", async e => {
     e.preventDefault();
     form.classList.add("touched");
     const bad = [...form.elements].find(f => f.willValidate && !f.checkValidity());
-    if (bad) { errorEl.textContent = "Please fill in the highlighted fields."; bad.focus(); return; }
+    if (bad) {
+      errorEl.textContent = bad.id === "iDate" && bad.validity.rangeUnderflow
+        ? "Please choose an event date that hasn't passed yet."
+        : "Please fill in the highlighted fields.";
+      bad.focus(); return;
+    }
     errorEl.textContent = "";
 
     const data = new URLSearchParams();
     for (const [k, v] of new FormData(form).entries()) if (String(v).trim()) data.append(k, v);
+    data.set("_hp", form.querySelector("#iRef").value);
+    data.set("_ms", String(Date.now() - loadedAt));
     if (form.querySelector("#packageWrap").hidden) data.delete("Package Interest");
 
     btn.disabled = true; btn.textContent = "Sending…";
